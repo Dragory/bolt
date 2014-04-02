@@ -148,6 +148,10 @@ class Content implements \ArrayAccess
                 }
             }
 
+            if ($this->fieldtype($key) === "image" && is_string($this->values[$key]) && mb_substr($this->values[$key], 0, 1) === "{") {
+                $this->values[$key] = (array) json_decode($this->values[$key]);
+            }
+
             if ($this->fieldtype($key)=="video" && is_array($this->values[$key]) && !empty($this->values[$key]['url'])) {
 
                 $video = $this->values[$key];
